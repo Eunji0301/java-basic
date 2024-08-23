@@ -61,5 +61,18 @@ public class Variable {
         System.out.println("안녕하세요 저는 " + age + "살 " + name + "입니다.");
         System.out.println("안녕하세요 저는 " + age + "살 " + name + "입니다.");
         System.out.println("안녕하세요 저는 " + age + "살 " + name + "입니다.");
+
+        // 변수 사용 시 주의사항
+        // 동일한 이름의 변수가 2개 이상 존재할 수 없다.
+        // 변수명이 숫자나 특수기호로 시작해서는 안된다. 숫자에 한해서 뒤쪽에 붙이는 것은 가능.
+        // int 1aa = 10;, int !aa = 30;
+        // 변수는 재활용 가능
+
+        int a = 10;
+        System.out.println(a);
+        a = 20;
+        System.out.println(a);
+
+        // 변수는 = 기준 왼쪽, 저장할 값은 오른쪽
     }
 }
