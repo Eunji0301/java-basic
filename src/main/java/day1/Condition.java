@@ -23,6 +23,7 @@ public class Condition {
             System.out.println("떡볶이를 먹어요");
         }
 
+        // 실행될 경우의 수가 4 -> if문 4개 필요
         // 맑음(1) : 날씨가 맑습니다. 나들이 나가세요.
         // 흐림(2) : 날씨가 흐립니다. 집에 계세요.
         // 비(3) : 날씨가 비가 옵니다. 우산을 챙기세요.
@@ -42,6 +43,29 @@ public class Condition {
         }
         if (weather == 4) {
             System.out.println("날씨가 눈이 옵니다. 눈사람을 만들어보세요.");
+        }
+
+        // 나이에 따른 학적 표현
+        // 초등학생, 중학생, 고등학생, 성인
+        // 13살 이하 초등학생, 16살 이하는 중학생, 19살 이하는 고등학생, 20살 이상은 성인
+
+        int age = 14;
+
+        if (age <= 13) {
+            System.out.println("초등학생");
+        }
+        if (age <= 16) {
+            if (age > 13) {
+                System.out.println("중학생");
+            }
+        }
+        if (age <= 19) {
+            if (age > 16) {
+                System.out.println("고등학생");
+            }
+        }
+        if (age >= 20) {
+            System.out.println("성인");
         }
     }
 }
