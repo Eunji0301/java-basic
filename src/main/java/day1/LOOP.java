@@ -7,6 +7,12 @@ public class LOOP {
 //            System.out.println("안녕하세요.");
 //            count++;
 //        }
+        int sum = 0;
+
+        for(int i = 1; i <= 10; i++) {
+            sum += i;
+        }
+        System.out.println(sum);
 
         int num = 1;
         System.out.println(num);
@@ -30,3 +36,4 @@ public class LOOP {
         }
     }
 }
+
