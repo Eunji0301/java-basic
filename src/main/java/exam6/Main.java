@@ -25,7 +25,10 @@ public class Main {
                     System.out.println("잔액이 부족합니다.");
                     continue;
                 }
-
+                if(beverage.equals("수량부족")){
+                    System.out.println("수량이 부족합니다.");
+                    continue;
+                }
                 System.out.println(beverage + "을/를 뽑으셨습니다.");
                 int remainder = vm.getRemainder();
                 System.out.println("잔액은 " + remainder + "원입니다.");
