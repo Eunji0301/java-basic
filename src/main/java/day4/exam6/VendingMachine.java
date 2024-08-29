@@ -1,5 +1,7 @@
 package day4.exam6;
 
+import java.util.ArrayList;
+
 public class VendingMachine {
     // 값 세팅 X
     // 연습용으로 하나의 객체만 사용할 때에는 미리 넣어두는 것이 편하니까 그냥 넣어둠.
@@ -7,8 +9,14 @@ public class VendingMachine {
     int remainderMoney = 0;
 
     String[] beverageNames = {"콜라", "사이다", "커피"};
+//    ArrayList<String> beverageNames = new ArrayList<>();
+
+
     int[] beveragePrices = {1000, 1200, 800};
+//    ArrayList<Integer> beveragePrices = new ArrayList<>();
+
     int[] beverageNum = {1, 2, 1};
+//    ArrayList<Integer> beverageNum = new ArrayList<>();
 
     public void printBeverage() {
         System.out.println("== 음료수 목록 ==");
