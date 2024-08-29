@@ -40,6 +40,12 @@ public class exam3 {
             p.get(i).introduce();
         }
 
+        System.out.println("== 이순신 제거 ==");
+        p.remove(1);
+        for (int i = 0; i < p.size(); i++) {
+            p.get(i).introduce();
+        }
+
         // 3. 30대인 사람에게만 자기소개 시키기
         System.out.println("== 30대인 사람에게만 자기소개 시키기 ==");
         for (int i = 0; i < p.size(); i++) {
@@ -47,6 +53,10 @@ public class exam3 {
                 p.get(i).introduce();
             }
         }
+
+
+
+        // 2개 이상의 데이터로 표현되는 개념/사물은 무조건 객체로 만들어라
     }
 }
 
