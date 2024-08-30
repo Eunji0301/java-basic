@@ -40,10 +40,14 @@ class Person2{
     int age;
     String name;
 
-    public Person2(int ageParam, String nameParam) {
-        age = ageParam;
-        name = nameParam;
-        System.out.println("사람이 태어납니다.");
+//    public Person2(int ageParam, String nameParam) {
+//        age = ageParam;
+//        name = nameParam;
+//        System.out.println("사람이 태어납니다.");
+//    }
+    public Person2(int age, String name) {
+        this.age = age; // this는 메서드를 수행하는 객체를 의미한다.
+        this. name = name;
     }
 
     public void introduce() {
