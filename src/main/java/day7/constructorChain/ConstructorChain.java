@@ -1,4 +1,4 @@
-package day7.inheritance.constructorChain;
+package day7.constructorChain;
 
 // 상속은 부모객체를 만들고 자식객체가 그 위에 만들어진다.
 // 동일한 이름을 가진 자원은 자기 자신 것을 우선으로 사용

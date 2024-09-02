@@ -1,4 +1,4 @@
-package day7.inheritance.composition;
+package day7.composition;
 
 public class Leecorporation {
     public static void main(String[] args) {

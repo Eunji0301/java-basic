@@ -1,4 +1,4 @@
-package day7.inheritance.duck;
+package day7.duck;
 
 public class 오리 {
     public void 날다() {

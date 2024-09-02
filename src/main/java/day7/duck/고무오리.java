@@ -1,4 +1,4 @@
-package day7.inheritance.duck;
+package day7.duck;
 
 public class 고무오리 extends 오리 {
     // Overriding

@@ -1,4 +1,4 @@
-package day7.inheritance.duck;
+package day7.duck;
 /* 가정
 우리는 게임개발회사에 입사했다.
 우리에게는 성격좋은 사수 한명이 있다.

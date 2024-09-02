@@ -1,4 +1,4 @@
-package day7.inheritance.duck;
+package day7.duck;
 
 // 둘 이상의 부모를 상속받을 수 없음.
 // 객체가 많아지고 상속 관계가 복잡해질수록 중복 해결이 어려워짐.

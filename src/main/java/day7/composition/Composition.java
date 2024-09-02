@@ -1,4 +1,4 @@
-package day7.inheritance.composition;
+package day7.composition;
 
 // 왜 Composition?
 public class Composition {
