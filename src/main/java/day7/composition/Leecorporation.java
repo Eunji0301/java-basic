@@ -6,6 +6,7 @@ public class Leecorporation {
         // Kildong이와 Kilsoon이를 고용해서 leeCorp가 java와 python 수주가 가능하도록
 
         LeeCorp leeCorp = new LeeCorp();
+
         leeCorp.kildong = new Jini();
         leeCorp.soon = new Kilsoon();
 
