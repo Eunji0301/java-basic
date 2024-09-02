@@ -1,0 +1,37 @@
+package day7.inheritance.composition;
+
+// 왜 Composition?
+public class Composition {
+    public static void main(String[] args) {
+        Kildong dong = new Kildong();
+        Kilsoon soon = new Kilsoon();
+
+        // 자바는 내가 할게. 대신 넌 파이썬을 해.
+        dong.java();
+        soon.java(); // 길순아 자바 프로그래밍 해줘
+    }
+}
+
+class Kildong {
+    public void java() {
+        System.out.println("자바 25버전 프로그래밍");
+    }
+}
+
+class Kilsoon {
+    Kildong kildong = new Kildong();
+
+    public void java() {
+        kildong.java();
+        // 길동이한테 연락.
+    }
+    public void python() {
+        System.out.println("파이썬 프로그래밍");
+    }
+}
+
+class Jini {
+    public void java() {
+        System.out.println("아주 뛰어난 자바 프로그래밍");
+    }
+}
