@@ -9,6 +9,10 @@ public class Inheritance {
         Cat c1 = new Cat();
         c1.meow();
         c1.breathe();
+
+        Person p1 = new Person();
+        p1.walk();
+        p1.breathe();
     }
 }
 
@@ -38,4 +42,10 @@ class Cat extends Animal {
 //    public void breathe() {
 //        System.out.println("숨쉬다.");
 //    }
+}
+
+class Person extends Animal {
+    public void walk() {
+        System.out.println("걷다.");
+    }
 }
