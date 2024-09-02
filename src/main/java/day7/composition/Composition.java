@@ -12,7 +12,13 @@ public class Composition {
     }
 }
 
-class Kildong {
+class JavaDeveloper {
+    public void java() {
+        System.out.println("자바 프로그래밍");
+    }
+}
+
+class Kildong extends JavaDeveloper {
     public void java() {
         System.out.println("자바 25버전 프로그래밍");
     }
@@ -30,7 +36,7 @@ class Kilsoon {
     }
 }
 
-class Jini {
+class Jini extends JavaDeveloper {
     public void java() {
         System.out.println("아주 뛰어난 자바 프로그래밍");
     }
