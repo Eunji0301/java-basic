@@ -46,8 +46,7 @@ public class Main {
             if (cmd.equals("exit")) {
                 System.out.println("프로그램을 종료합니다.");
                 break;
-            }
-            else if (cmd.equals("add")) {
+            } else if (cmd.equals("add")) {
                 System.out.print("게시물 제목을 입력해주세요 : ");
                 String title = scanner.nextLine();
                 System.out.print("게시물 내용을 입력해주세요 : ");
@@ -60,8 +59,7 @@ public class Main {
                 post_body.add(body);
                 post_view.add(0);
 
-            }
-            else if (cmd.equals("list")) {
+            } else if (cmd.equals("list")) {
                 System.out.println("==================");
 
                 for (int i = 0; i < post_title.size(); i++) {
@@ -69,16 +67,14 @@ public class Main {
                     System.out.println("제목 : " + post_title.get(i));
                     System.out.println("==================");
                 }
-            }
-            else if (cmd.equals("update")) {
+            } else if (cmd.equals("update")) {
                 System.out.print("수정할 게시물 번호 : ");
                 int number = Integer.parseInt(scanner.nextLine());
                 int index = post_number.indexOf(number);
 
                 if (number > post_title.size() || number <= 0) {
                     System.out.println("없는 게시물 번호입니다.");
-                }
-                else {
+                } else {
                     System.out.print("제목 : ");
                     String new_title = scanner.nextLine();
                     System.out.print("내용 : ");
@@ -88,16 +84,14 @@ public class Main {
                     post_title.set(index, new_title);
                     post_body.set(index, new_body);
                 }
-            }
-            else if (cmd.equals("delete")) {
+            } else if (cmd.equals("delete")) {
                 System.out.print("삭제할 게시물 번호 : ");
                 int number = Integer.parseInt(scanner.nextLine());
                 int index = post_number.indexOf(number);
 
                 if (number > post_title.size() || number <= 0) {
                     System.out.println("없는 게시물 번호입니다.");
-                }
-                else {
+                } else {
                     System.out.println(number + "번 게시물이 삭제되었습니다.");
 
                     post_number.remove(index);
@@ -105,25 +99,67 @@ public class Main {
                     post_body.remove(index);
                     post_view.remove(index);
                 }
-            }
-            else if (cmd.equals("detail")) {
+            } else if (cmd.equals("detail")) {
                 System.out.print("상세보기 할 게시물 번호 : ");
                 int number = Integer.parseInt(scanner.nextLine());
                 int index = post_number.indexOf(number);
 
                 if (number > post_title.size() || number <= 0) {
                     System.out.println("없는 게시물 번호입니다.");
-                }
-                else {
+                } else {
                     post_view.set(index, post_view.get(index) + 1);
 
-                    System.out.println("==================");
+                    System.out.println("===== " + post_number.get(index) + "번 게시물 =====");
                     System.out.println("번호 : " + post_number.get(index));
                     System.out.println("제목 : " + post_title.get(index));
                     System.out.println("내용 : " + post_body.get(index));
                     System.out.println("등록날짜 : " + formatedNow);
                     System.out.println("조회수 : " + post_view.get(index));
-                    System.out.println("==================");
+                    System.out.println("======================");
+
+                    ArrayList<String> post_comment = new ArrayList<>();
+
+
+                    while (true) {
+                        System.out.print("상세보기 기능을 선택해주세요(1. 댓글 등록, 2. 추천, 3. 수정, 4. 삭제, 5. 목록으로) : ");
+                        int dnum = Integer.parseInt(scanner.nextLine());
+
+                        if (dnum == 1) { // 댓글 등록
+                            System.out.print("댓글 내용 : ");
+                            String comment = scanner.nextLine();
+                            post_comment.add(comment);
+
+                            System.out.println("댓글이 성공적으로 등록되었습니다.");
+                            System.out.println("===== " + post_number.get(index) + "번 게시물 =====");
+                            System.out.println("번호 : " + post_number.get(index));
+                            System.out.println("제목 : " + post_title.get(index));
+                            System.out.println("내용 : " + post_body.get(index));
+                            System.out.println("등록날짜 : " + formatedNow);
+                            System.out.println("조회수 : " + post_view.get(index));
+                            System.out.println("======================");
+
+                            for(int i = 0; i < post_comment.size(); i++) {
+                                System.out.println("======= 댓글 =======");
+                                System.out.println(post_comment.get(i));
+                                System.out.println("댓글 작성일 : " + formatedNow);
+                                System.out.println("====================");
+                            }
+                        }
+//                    else if (dnum == 2) { // 추천
+//
+//                    }
+//                    else if (dnum == 3) { // 수정
+//
+//                    }
+//                    else if (dnum == 4) { // 삭제
+//
+//                    }
+                        else if (dnum == 5) { // 목록으로
+                            System.out.println("상세보기 화면을 빠져나갑니다.");
+                            break;
+                        }
+                    }
+
                 }
             }
         }
