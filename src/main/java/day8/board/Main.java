@@ -1,8 +1,9 @@
 package day8.board;
 
-import day2.Array;
-
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Main {
@@ -10,11 +11,33 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
+        Date now = Calendar.getInstance().getTime();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd hh:mm:ss");
+        String formatedNow = formatter.format(now);
+
         ArrayList<Integer> post_number = new ArrayList<>();
         ArrayList<String> post_title = new ArrayList<>();
         ArrayList<String> post_body = new ArrayList<>();
+        ArrayList<Integer> post_view = new ArrayList<>();
 
         int postCount = 0;
+        postCount++;
+        post_number.add(postCount);
+        post_title.add("안녕하세요 반갑습니다. 자바 공부중이에요.");
+        post_body.add("자바 너무 재밌어요!!");
+        post_view.add(0);
+
+        postCount++;
+        post_number.add(postCount);
+        post_title.add("자바 질문좀 할게요~");
+        post_body.add("qqq");
+        post_view.add(0);
+
+        postCount++;
+        post_number.add(postCount);
+        post_title.add("정처기 따야되나요?");
+        post_body.add("ggg");
+        post_view.add(0);
 
         while (true) {
             System.out.print("명령어 : ");
@@ -35,9 +58,12 @@ public class Main {
                 post_number.add(postCount);
                 post_title.add(title);
                 post_body.add(body);
+                post_view.add(0);
+
             }
             else if (cmd.equals("list")) {
                 System.out.println("==================");
+
                 for (int i = 0; i < post_title.size(); i++) {
                     System.out.println("번호 : " + post_number.get(i));
                     System.out.println("제목 : " + post_title.get(i));
@@ -49,7 +75,7 @@ public class Main {
                 int number = Integer.parseInt(scanner.nextLine());
                 int index = post_number.indexOf(number);
 
-                if (number > post_title.size()) {
+                if (number > post_title.size() || number <= 0) {
                     System.out.println("없는 게시물 번호입니다.");
                 }
                 else {
@@ -68,15 +94,36 @@ public class Main {
                 int number = Integer.parseInt(scanner.nextLine());
                 int index = post_number.indexOf(number);
 
-                if (number > post_title.size()) {
+                if (number > post_title.size() || number <= 0) {
                     System.out.println("없는 게시물 번호입니다.");
                 }
                 else {
-                    System.out.println(number+ "번 게시물이 삭제되었습니다.");
+                    System.out.println(number + "번 게시물이 삭제되었습니다.");
 
                     post_number.remove(index);
                     post_title.remove(index);
                     post_body.remove(index);
+                    post_view.remove(index);
+                }
+            }
+            else if (cmd.equals("detail")) {
+                System.out.print("상세보기 할 게시물 번호 : ");
+                int number = Integer.parseInt(scanner.nextLine());
+                int index = post_number.indexOf(number);
+
+                if (number > post_title.size() || number <= 0) {
+                    System.out.println("없는 게시물 번호입니다.");
+                }
+                else {
+                    post_view.set(index, post_view.get(index) + 1);
+
+                    System.out.println("==================");
+                    System.out.println("번호 : " + post_number.get(index));
+                    System.out.println("제목 : " + post_title.get(index));
+                    System.out.println("내용 : " + post_body.get(index));
+                    System.out.println("등록날짜 : " + formatedNow);
+                    System.out.println("조회수 : " + post_view.get(index));
+                    System.out.println("==================");
                 }
             }
         }
