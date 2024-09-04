@@ -1,7 +1,5 @@
 package day8.board;
 
-import day2.Array;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -121,8 +119,7 @@ public class Main {
 
                     ArrayList<String> post_comment = new ArrayList<>();
                     ArrayList<String> post_comment_date = new ArrayList<>();
-
-
+                    
                     while (true) {
                         System.out.print("상세보기 기능을 선택해주세요(1. 댓글 등록, 2. 추천, 3. 수정, 4. 삭제, 5. 목록으로) : ");
                         int dnum = Integer.parseInt(scanner.nextLine());
@@ -165,8 +162,26 @@ public class Main {
                             break;
                         }
                     }
-
                 }
+            } else if (cmd.equals("signup")) {
+                ArrayList<String> person_id = new ArrayList<>();
+                ArrayList<String> person_pw = new ArrayList<>();
+                ArrayList<String> person_nickname = new ArrayList<>();
+
+                System.out.println("==== 회원가입을 진행합니다 ====");
+                System.out.print("아이디를 입력해주세요 : ");
+                String id = scanner.nextLine();
+                person_id.add(id);
+
+                System.out.print("비밀번호를 입력해주세요 : ");
+                String pw = scanner.nextLine();
+                person_pw.add(pw);
+
+                System.out.print("닉네임을 입력해주세요 : ");
+                String nickname = scanner.nextLine();
+                person_nickname.add(nickname);
+
+                System.out.println("==== 회원가입이 완료되었습니다 ====");
             }
         }
     }
