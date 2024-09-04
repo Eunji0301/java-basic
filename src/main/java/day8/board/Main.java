@@ -1,5 +1,7 @@
 package day8.board;
 
+import day2.Array;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -118,6 +120,7 @@ public class Main {
                     System.out.println("======================");
 
                     ArrayList<String> post_comment = new ArrayList<>();
+                    ArrayList<String> post_comment_date = new ArrayList<>();
 
 
                     while (true) {
@@ -129,6 +132,9 @@ public class Main {
                             String comment = scanner.nextLine();
                             post_comment.add(comment);
 
+                            String commentDate = formatter.format(Calendar.getInstance().getTime());
+                            post_comment_date.add(commentDate);
+
                             System.out.println("댓글이 성공적으로 등록되었습니다.");
                             System.out.println("===== " + post_number.get(index) + "번 게시물 =====");
                             System.out.println("번호 : " + post_number.get(index));
@@ -138,10 +144,10 @@ public class Main {
                             System.out.println("조회수 : " + post_view.get(index));
                             System.out.println("======================");
 
-                            for(int i = 0; i < post_comment.size(); i++) {
-                                System.out.println("======= 댓글 =======");
+                            System.out.println("======= 댓글 =======");
+                            for (int i = 0; i < post_comment.size(); i++) {
                                 System.out.println(post_comment.get(i));
-                                System.out.println("댓글 작성일 : " + formatedNow);
+                                System.out.println("댓글 작성일 : " + post_comment_date.get(i));
                                 System.out.println("====================");
                             }
                         }
