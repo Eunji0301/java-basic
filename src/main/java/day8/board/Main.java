@@ -7,41 +7,86 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class Main {
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
         Date now = Calendar.getInstance().getTime();
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd hh:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
         String formatedNow = formatter.format(now);
 
         ArrayList<Integer> post_number = new ArrayList<>();
         ArrayList<String> post_title = new ArrayList<>();
         ArrayList<String> post_body = new ArrayList<>();
+        ArrayList<String> post_author = new ArrayList<>();
+        ArrayList<String> post_date = new ArrayList<>();
         ArrayList<Integer> post_view = new ArrayList<>();
+
+        ArrayList<String> post_comment = new ArrayList<>();
+        ArrayList<String> post_comment_date = new ArrayList<>();
 
         ArrayList<String> sign_id = new ArrayList<>();
         ArrayList<String> sign_pw = new ArrayList<>();
         ArrayList<String> sign_nickname = new ArrayList<>();
 
         int postCount = 0;
+
         postCount++;
         post_number.add(postCount);
         post_title.add("안녕하세요 반갑습니다. 자바 공부중이에요.");
         post_body.add("자바 너무 재밌어요!!");
+        post_author.add("홍길동");
+        post_date.add(formatter.format(Calendar.getInstance().getTime()));
         post_view.add(0);
+
 
         postCount++;
         post_number.add(postCount);
         post_title.add("자바 질문좀 할게요~");
-        post_body.add("qqq");
+        post_body.add("자바에서 배열과 리스트의 차이가 뭔가요?");
+        post_author.add("이순신");
+        post_date.add(formatter.format(Calendar.getInstance().getTime()));
         post_view.add(0);
+
 
         postCount++;
         post_number.add(postCount);
         post_title.add("정처기 따야되나요?");
-        post_body.add("ggg");
+        post_body.add("정처기 자격증이 취업에 얼마나 도움이 될까요?");
+        post_author.add("임꺽정");
+        post_date.add(formatter.format(Calendar.getInstance().getTime()));
         post_view.add(0);
+
+
+        System.out.println("==== 회원가입을 진행합니다 ====");
+        System.out.print("아이디를 입력해주세요 : ");
+        String id = scanner.nextLine();
+        sign_id.add(id);
+
+        System.out.print("비밀번호를 입력해주세요 : ");
+        String pw = scanner.nextLine();
+        sign_pw.add(pw);
+
+        System.out.print("닉네임을 입력해주세요 : ");
+        String nickname = scanner.nextLine();
+        sign_nickname.add(nickname);
+
+        System.out.println("==== 회원가입이 완료되었습니다 ====");
+
+        System.out.print("아이디 : ");
+        String login_id = scanner.nextLine();
+        System.out.print("비밀번호 : ");
+        String login_pw = scanner.nextLine();
+
+        for (int i = 0; i < sign_id.size(); i++) {
+            if (sign_id.get(i).equals(login_id)) {
+                if (sign_pw.get(i).equals(login_pw)) {
+                    System.out.println(sign_nickname.get(i) + "님 환영합니다!");
+//                    System.out.print("명령어를 입력해주세요[" + sign_id.get(i) + "(" + sign_nickname.get(i) + ")] : ");
+                }
+            } else {
+                System.out.println("비밀번호를 틀렸거나 잘못된 회원정보입니다.");
+            }
+        }
 
         while (true) {
             System.out.print("명령어 : ");
@@ -121,9 +166,6 @@ public class Main {
                     System.out.println("조회수 : " + post_view.get(index));
                     System.out.println("======================");
 
-                    ArrayList<String> post_comment = new ArrayList<>();
-                    ArrayList<String> post_comment_date = new ArrayList<>();
-
                     while (true) {
                         System.out.print("상세보기 기능을 선택해주세요(1. 댓글 등록, 2. 추천, 3. 수정, 4. 삭제, 5. 목록으로) : ");
                         int dnum = Integer.parseInt(scanner.nextLine());
@@ -155,52 +197,52 @@ public class Main {
 //                    else if (dnum == 2) { // 추천
 //
 //                    }
-//                    else if (dnum == 3) { // 수정
-//
-//                    }
-//                    else if (dnum == 4) { // 삭제
-//
-//                    }
-                        else if (dnum == 5) { // 목록으로
+                        else if (dnum == 3) { // 수정
+                            if (sign_id.get(index).equals(post_author.get(index))) {
+                                System.out.print("제목 : ");
+                                String new_title = scanner.nextLine();
+                                System.out.print("내용 : ");
+                                String new_body = scanner.nextLine();
+
+                                post_title.set(index, new_title);
+                                post_body.set(index, new_body);
+
+                                System.out.println("===== " + post_number.get(index) + "번 게시물 =====");
+                                System.out.println("번호 : " + post_number.get(index));
+                                System.out.println("제목 : " + post_title.get(index));
+                                System.out.println("내용 : " + post_body.get(index));
+                                System.out.println("등록날짜 : " + formatedNow);
+                                System.out.println("조회수 : " + post_view.get(index));
+                                System.out.println("작성자 : " + post_author.get(index));
+                                System.out.println("======================");
+                            } else {
+                                System.out.println("자신의 게시물만 수정할 수 있습니다.");
+                            }
+                        } else if (dnum == 4) { // 삭제
+                            if (sign_id.get(index).equals(post_author.get(index))) {
+                                System.out.print("정말 게시물을 삭제하시겠습니까?(y/n) : ");
+                                String confirm = scanner.nextLine();
+
+                                if (confirm.equals("y")) {
+                                    post_number.remove(index);
+                                    post_title.remove(index);
+                                    post_body.remove(index);
+                                    post_view.remove(index);
+                                    post_author.remove(index);
+                                    post_date.remove(index);
+
+                                    System.out.println(sign_id + "님의 " + number + "번 게시물을 삭제했습니다.");
+                                    break;
+                                }
+                            } else {
+                                System.out.println("자신의 게시물만 삭제할 수 있습니다.");
+                            }
+                        } else if (dnum == 5) { // 목록으로
                             System.out.println("상세보기 화면을 빠져나갑니다.");
                             break;
                         }
                     }
                 }
-            } else if (cmd.equals("signup")) {
-                System.out.println("==== 회원가입을 진행합니다 ====");
-                System.out.print("아이디를 입력해주세요 : ");
-                String id = scanner.nextLine();
-                sign_id.add(id);
-
-                System.out.print("비밀번호를 입력해주세요 : ");
-                String pw = scanner.nextLine();
-                sign_pw.add(pw);
-
-                System.out.print("닉네임을 입력해주세요 : ");
-                String nickname = scanner.nextLine();
-                sign_nickname.add(nickname);
-
-                System.out.println("==== 회원가입이 완료되었습니다 ====");
-            } else if (cmd.equals("login")) {
-                System.out.print("아이디 : ");
-                String login_id = scanner.nextLine();
-                System.out.print("비밀번호 : ");
-                String login_pw = scanner.nextLine();
-
-                for (int i = 0; i < sign_id.size(); i++) {
-                    if (sign_id.get(i).equals(login_id)) {
-                        if (sign_pw.get(i).equals(login_pw)) {
-                            System.out.println(sign_nickname.get(i) + "님 환영합니다!");
-                            System.out.print("명령어를 입력해주세요[" + sign_id.get(i) + "(" + sign_nickname.get(i) + ")] : ");
-                            String cmdInLogin = scanner.nextLine();
-                            System.out.println("[게시물 목록]");
-                        }
-                    } else {
-                        System.out.println("비밀번호를 틀렸거나 잘못된 회원정보입니다.");
-                    }
-                }
-
             }
         }
     }
