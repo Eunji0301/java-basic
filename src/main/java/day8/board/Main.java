@@ -20,6 +20,10 @@ public class Main {
         ArrayList<String> post_body = new ArrayList<>();
         ArrayList<Integer> post_view = new ArrayList<>();
 
+        ArrayList<String> sign_id = new ArrayList<>();
+        ArrayList<String> sign_pw = new ArrayList<>();
+        ArrayList<String> sign_nickname = new ArrayList<>();
+
         int postCount = 0;
         postCount++;
         post_number.add(postCount);
@@ -119,7 +123,7 @@ public class Main {
 
                     ArrayList<String> post_comment = new ArrayList<>();
                     ArrayList<String> post_comment_date = new ArrayList<>();
-                    
+
                     while (true) {
                         System.out.print("상세보기 기능을 선택해주세요(1. 댓글 등록, 2. 추천, 3. 수정, 4. 삭제, 5. 목록으로) : ");
                         int dnum = Integer.parseInt(scanner.nextLine());
@@ -164,24 +168,39 @@ public class Main {
                     }
                 }
             } else if (cmd.equals("signup")) {
-                ArrayList<String> person_id = new ArrayList<>();
-                ArrayList<String> person_pw = new ArrayList<>();
-                ArrayList<String> person_nickname = new ArrayList<>();
-
                 System.out.println("==== 회원가입을 진행합니다 ====");
                 System.out.print("아이디를 입력해주세요 : ");
                 String id = scanner.nextLine();
-                person_id.add(id);
+                sign_id.add(id);
 
                 System.out.print("비밀번호를 입력해주세요 : ");
                 String pw = scanner.nextLine();
-                person_pw.add(pw);
+                sign_pw.add(pw);
 
                 System.out.print("닉네임을 입력해주세요 : ");
                 String nickname = scanner.nextLine();
-                person_nickname.add(nickname);
+                sign_nickname.add(nickname);
 
                 System.out.println("==== 회원가입이 완료되었습니다 ====");
+            } else if (cmd.equals("login")) {
+                System.out.print("아이디 : ");
+                String login_id = scanner.nextLine();
+                System.out.print("비밀번호 : ");
+                String login_pw = scanner.nextLine();
+
+                for (int i = 0; i < sign_id.size(); i++) {
+                    if (sign_id.get(i).equals(login_id)) {
+                        if (sign_pw.get(i).equals(login_pw)) {
+                            System.out.println(sign_nickname.get(i) + "님 환영합니다!");
+                            System.out.print("명령어를 입력해주세요[" + sign_id.get(i) + "(" + sign_nickname.get(i) + ")] : ");
+                            String cmdInLogin = scanner.nextLine();
+                            System.out.println("[게시물 목록]");
+                        }
+                    } else {
+                        System.out.println("비밀번호를 틀렸거나 잘못된 회원정보입니다.");
+                    }
+                }
+
             }
         }
     }
