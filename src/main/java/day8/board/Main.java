@@ -15,6 +15,11 @@ public class Main {
 
     static int postCount = 0;
 
+    static int currentPage = 1; // 최근 페이지
+    static int postsPerPage = 3; // 한페이지당 3 게시물
+    static int pageDisplayLimit = 5;// 페이지 개수 많을 때 한 블록에 최대 5개 페이지
+
+
     public static void main(String[] args) {
 
         initializePosts();
@@ -39,6 +44,8 @@ public class Main {
                 detailPost(loggedInUser);
             } else if (cmd.equals("sort")) {
                 sortPost(loggedInUser);
+            } else if (cmd.equals("page")) {
+                paging();
             }
         }
     }
@@ -79,6 +86,9 @@ public class Main {
         posts.add(new Post(++postCount, "안녕하세요 반갑습니다. 자바 공부중이에요.", "자바 너무 재밌어요!!", "홍길동", formatter.format(Calendar.getInstance().getTime())));
         posts.add(new Post(++postCount, "자바 질문좀 할게요~", "자바에서 배열과 리스트의 차이가 뭔가요?", "이순신", formatter.format(Calendar.getInstance().getTime())));
         posts.add(new Post(++postCount, "정처기 따야되나요?", "정처기 자격증이 취업에 얼마나 도움이 될까요?", "임꺽정", formatter.format(Calendar.getInstance().getTime())));
+        posts.add(new Post(++postCount, "같이 공부해요!", "스터디카페에서 공부하려합니다. 연락주세요~", "유관순", formatter.format(Calendar.getInstance().getTime())));
+        posts.add(new Post(++postCount, "고민이 있습니다.", "취업에 자꾸 실패에 우울합니다. 어떻게해야할까요?", "안중근", formatter.format(Calendar.getInstance().getTime())));
+        posts.add(new Post(++postCount, "포기하려합니다.", "아예 새로운 분야를 공부해야할까요?", "김구", formatter.format(Calendar.getInstance().getTime())));
     }
 
     private static void sortPost(User loggedInUser) {
@@ -102,6 +112,82 @@ public class Main {
         }
 
         listPosts();
+    }
+
+    private static void paging() {
+
+        while (true) {
+            int totalPages = (int) Math.ceil((double) posts.size() / postsPerPage);
+            showPostsOnPage(currentPage);
+            showPageNumbers(totalPages);
+
+            System.out.print("페이징 명령어를 입력해주세요 (( 1. 이전, 2. 다음, 3. 선택, 4. 뒤로가기) : ");
+            int pNum = Integer.parseInt(scanner.nextLine());
+
+            if (pNum == 1) { // 이전
+                if (currentPage > 1) {
+                    currentPage--;
+                } else {
+                    System.out.println("첫 페이지입니다.");
+                }
+            } else if (pNum == 2) { // 다음
+                if (currentPage < totalPages) {
+                    currentPage++;
+                } else {
+                    System.out.println("마지막 페이지입니다.");
+                }
+            } else if (pNum == 3) { // 선택
+                System.out.print("이동하실 페이지 번호를 입력해주세요 : ");
+                int selectedPage = Integer.parseInt(scanner.nextLine());
+
+                if (selectedPage >= 1 && selectedPage <= totalPages) {
+                    currentPage = selectedPage;
+                } else {
+                    System.out.println("잘못된 페이지 번호입니다.");
+                }
+            } else if (pNum == 4) { // 뒤로가기
+                break;
+            }
+        }
+    }
+
+    private static void showPostsOnPage(int page) {
+        int start = (page - 1) * postsPerPage;
+        int end = Math.min(start + postsPerPage, posts.size());
+
+        for (int i = start; i < end; i++) {
+            Post post = posts.get(i);
+            System.out.println("================");
+            System.out.println("번호 : " + post.number);
+            System.out.println("제목 : " + post.title);
+            System.out.println("작성자 : " + post.author);
+            System.out.println("조회수 : " + post.view);
+            System.out.println("좋아요 : " + post.like);
+            System.out.println("================");
+        }
+    }
+
+    private static void showPageNumbers(int totalPages) {
+        int startPage = Math.max(1, currentPage - (pageDisplayLimit / 2));
+        int endPage = Math.min(totalPages, startPage + pageDisplayLimit - 1);
+
+        if (startPage > 1) {
+            System.out.print("<< ");
+        }
+
+        for (int i = startPage; i <= endPage; i++) {
+            if (i == currentPage) {
+                System.out.print("[" + i + "] ");
+            } else {
+                System.out.print(i + " ");
+            }
+        }
+
+        if (endPage < totalPages) {
+            System.out.println(">>");
+        }
+
+        System.out.println();
     }
 
     private static void detailPost(User loggedInUser) {
