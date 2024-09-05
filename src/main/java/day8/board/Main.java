@@ -84,7 +84,7 @@ public class Main {
     private static void sortPost(User loggedInUser) {
         System.out.print("정렬대상을 선택해주세요 : (1. 번호, 2. 조회수) : ");
         int sortTarget = Integer.parseInt(scanner.nextLine());
-        System.out.println("정렬 방법을 선택해주세요 : (1. 오름차순, 2. 내림차순) : ");
+        System.out.print("정렬 방법을 선택해주세요 : (1. 오름차순, 2. 내림차순) : ");
         int sortHow = Integer.parseInt(scanner.nextLine());
 
         if (sortTarget == 1) {
@@ -97,11 +97,11 @@ public class Main {
             if (sortHow == 1) {
                 posts.sort(Comparator.comparingInt(post -> post.view));
             } else if (sortHow == 2) {
-                posts.sort((post1, post2) -> post2.number - post1.number);
+                posts.sort((post1, post2) -> post2.view - post1.view);
             }
         }
 
-
+        listPosts();
     }
 
     private static void detailPost(User loggedInUser) {
