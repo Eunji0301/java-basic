@@ -19,9 +19,9 @@ public class Main {
 
         int postCount = 0;
 
-        posts.add(new Post(postCount++, "안녕하세요 반갑습니다. 자바 공부중이에요.", "자바 너무 재밌어요!!", "홍길동", formatter.format(Calendar.getInstance().getTime())));
-        posts.add(new Post(postCount++, "자바 질문좀 할게요~", "자바에서 배열과 리스트의 차이가 뭔가요?", "이순신", formatter.format(Calendar.getInstance().getTime())));
-        posts.add(new Post(postCount++, "정처기 따야되나요?", "정처기 자격증이 취업에 얼마나 도움이 될까요?", "임꺽정", formatter.format(Calendar.getInstance().getTime())));
+        posts.add(new Post(++postCount, "안녕하세요 반갑습니다. 자바 공부중이에요.", "자바 너무 재밌어요!!", "홍길동", formatter.format(Calendar.getInstance().getTime())));
+        posts.add(new Post(++postCount, "자바 질문좀 할게요~", "자바에서 배열과 리스트의 차이가 뭔가요?", "이순신", formatter.format(Calendar.getInstance().getTime())));
+        posts.add(new Post(++postCount, "정처기 따야되나요?", "정처기 자격증이 취업에 얼마나 도움이 될까요?", "임꺽정", formatter.format(Calendar.getInstance().getTime())));
 
         System.out.println("==== 회원가입을 진행합니다 ====");
         System.out.print("아이디를 입력해주세요 : ");
@@ -49,11 +49,11 @@ public class Main {
                 System.out.println(user.nickname + "님 환영합니다!");
                 break;
             }
+        }
 
-            if (loggedInUser == null) {
-                System.out.println("비밀번호가 틀렸거나 잘못된 회원정보입니다.");
-                return;
-            }
+        if (loggedInUser == null) {
+            System.out.println("비밀번호가 틀렸거나 잘못된 회원정보입니다.");
+            return;
         }
 
         while (true) {
@@ -69,7 +69,7 @@ public class Main {
                 System.out.print("게시물 내용을 입력해주세요 : ");
                 String body = scanner.nextLine();
 
-                posts.add(new Post(postCount++, title, body, "작성자", formatter.format(new Date())));
+                posts.add(new Post(++postCount, title, body, "작성자", formatter.format(new Date())));
                 System.out.println("게시물이 등록되었습니다.");
             } else if (cmd.equals("list")) {
                 System.out.println("==================");
@@ -123,7 +123,7 @@ public class Main {
                     post.display();
 
                     while (true) {
-                        System.out.print("상세보기 기능을 선택해주세요(1. 댓글 등록, 2. 추천, 3. 수정, 4. 삭제, 5. 목록으로) : ");
+                        System.out.print("상세보기 기능을 선택해주세요(1. 댓글 등록, 2. 좋아요, 3. 수정, 4. 삭제, 5. 목록으로) : ");
                         int dnum = Integer.parseInt(scanner.nextLine());
 
                         if (dnum == 1) { // 댓글 등록
@@ -135,9 +135,9 @@ public class Main {
                             System.out.println("댓글이 성공적으로 등록되었습니다.");
                             post.display();
                         }
-//                    else if (dnum == 2) { // 추천
-//
-//                    }
+                        else if (dnum == 2) { // 좋아요
+
+                        }
                         else if (dnum == 3) { // 수정
                             if (post.author.equals(loggedInUser.nickname)) {
                                 System.out.print("제목 : ");
