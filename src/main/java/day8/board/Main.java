@@ -7,22 +7,44 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class Main {
+    static Scanner scanner = new Scanner(System.in);
+
+    static Date now = Calendar.getInstance().getTime();
+    static SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+    static String formatedNow = formatter.format(now);
+
+    static ArrayList<Post> posts = new ArrayList<>();
+    static ArrayList<User> users = new ArrayList<>();
+
+    static int postCount = 0;
+
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
 
-        Date now = Calendar.getInstance().getTime();
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-        String formatedNow = formatter.format(now);
+        initializePosts();
+        User loggedInUser = signAndLogin();
 
-        ArrayList<Post> posts = new ArrayList<>();
-        ArrayList<User> users = new ArrayList<>();
+        while (true) {
+            System.out.print("명령어 : ");
+            String cmd = scanner.nextLine();
 
-        int postCount = 0;
+            if (cmd.equals("exit")) {
+                System.out.println("프로그램을 종료합니다.");
+                break;
+            } else if (cmd.equals("add")) {
+                addPost(loggedInUser);
+            } else if (cmd.equals("list")) {
+                listPosts();
+            } else if (cmd.equals("update")) {
+                updatePost(loggedInUser);
+            } else if (cmd.equals("delete")) {
+                deletePost(loggedInUser);
+            } else if (cmd.equals("detail")) {
+                detailPost(loggedInUser);
+            }
+        }
+    }
 
-        posts.add(new Post(++postCount, "안녕하세요 반갑습니다. 자바 공부중이에요.", "자바 너무 재밌어요!!", "홍길동", formatter.format(Calendar.getInstance().getTime())));
-        posts.add(new Post(++postCount, "자바 질문좀 할게요~", "자바에서 배열과 리스트의 차이가 뭔가요?", "이순신", formatter.format(Calendar.getInstance().getTime())));
-        posts.add(new Post(++postCount, "정처기 따야되나요?", "정처기 자격증이 취업에 얼마나 도움이 될까요?", "임꺽정", formatter.format(Calendar.getInstance().getTime())));
-
+    private static User signAndLogin() {
         System.out.println("==== 회원가입을 진행합니다 ====");
         System.out.print("아이디를 입력해주세요 : ");
         String id = scanner.nextLine();
@@ -45,135 +67,135 @@ public class Main {
 
         for (User user : users) {
             if (user.id.equals(login_id) && user.pw.equals(login_pw)) {
-                loggedInUser = user;
                 System.out.println(user.nickname + "님 환영합니다!");
-                break;
+                return user;
             }
         }
 
-        if (loggedInUser == null) {
-            System.out.println("비밀번호가 틀렸거나 잘못된 회원정보입니다.");
-            return;
-        }
+        System.out.println("비밀번호가 틀렸거나 잘못된 회원정보입니다.");
+        return null;
+    }
 
-        while (true) {
-            System.out.print("명령어 : ");
-            String cmd = scanner.nextLine();
+    private static void initializePosts() {
+        posts.add(new Post(++postCount, "안녕하세요 반갑습니다. 자바 공부중이에요.", "자바 너무 재밌어요!!", "홍길동", formatter.format(Calendar.getInstance().getTime())));
+        posts.add(new Post(++postCount, "자바 질문좀 할게요~", "자바에서 배열과 리스트의 차이가 뭔가요?", "이순신", formatter.format(Calendar.getInstance().getTime())));
+        posts.add(new Post(++postCount, "정처기 따야되나요?", "정처기 자격증이 취업에 얼마나 도움이 될까요?", "임꺽정", formatter.format(Calendar.getInstance().getTime())));
+    }
 
-            if (cmd.equals("exit")) {
-                System.out.println("프로그램을 종료합니다.");
-                break;
-            } else if (cmd.equals("add")) {
-                System.out.print("게시물 제목을 입력해주세요 : ");
-                String title = scanner.nextLine();
-                System.out.print("게시물 내용을 입력해주세요 : ");
-                String body = scanner.nextLine();
+    private static void detailPost(User loggedInUser) {
+        System.out.print("상세보기 할 게시물 번호 : ");
+        int number = Integer.parseInt(scanner.nextLine());
+        Post post = getPostByNumber(posts, number);
 
-                posts.add(new Post(++postCount, title, body, "작성자", formatter.format(new Date())));
-                System.out.println("게시물이 등록되었습니다.");
-            } else if (cmd.equals("list")) {
-                System.out.println("==================");
+        if (post == null) {
+            System.out.println("없는 게시물 번호입니다.");
+        } else {
+            post.view++;
+            post.display();
 
-                for (Post post : posts) {
-                    System.out.println("번호 : " + post.number);
-                    System.out.println("제목 : " + post.title);
-                    System.out.println("==================");
-                }
-            } else if (cmd.equals("update")) {
-                System.out.print("수정할 게시물 번호 : ");
-                int number = Integer.parseInt(scanner.nextLine());
-                Post post = getPostByNumber(posts, number);
+            while (true) {
+                System.out.print("상세보기 기능을 선택해주세요(1. 댓글 등록, 2. 좋아요, 3. 수정, 4. 삭제, 5. 목록으로) : ");
+                int dnum = Integer.parseInt(scanner.nextLine());
 
-                if (post == null) {
-                    System.out.println("없는 게시물 번호입니다.");
-                } else if (!post.author.equals(loggedInUser.nickname)) {
-                    System.out.println("자신의 게시물만 수정할 수 있습니다.");
-                } else {
-                    System.out.print("제목 : ");
-                    String new_title = scanner.nextLine();
-                    System.out.print("내용 : ");
-                    String new_body = scanner.nextLine();
-                    System.out.println(number + "번 게시물이 수정되었습니다.");
+                if (dnum == 1) { // 댓글 등록
+                    System.out.print("댓글 내용 : ");
+                    String comment = scanner.nextLine();
+                    String commentDate = formatter.format(Calendar.getInstance().getTime());
+                    post.addComment(comment, commentDate);
 
-                    post.title = new_title;
-                    post.body = new_body;
-                }
-            } else if (cmd.equals("delete")) {
-                System.out.print("삭제할 게시물 번호 : ");
-                int number = Integer.parseInt(scanner.nextLine());
-                Post post = getPostByNumber(posts, number);
-
-                if (post == null) {
-                    System.out.println("없는 게시물 번호입니다.");
-                } else if (!post.author.equals(loggedInUser.nickname)) {
-                    System.out.println("자신의 게시물만 삭제할 수 있습니다.");
-                } else {
-                    posts.remove(post);
-                    System.out.println(number + "번 게시물이 삭제되었습니다.");
-                }
-            } else if (cmd.equals("detail")) {
-                System.out.print("상세보기 할 게시물 번호 : ");
-                int number = Integer.parseInt(scanner.nextLine());
-                Post post = getPostByNumber(posts, number);
-
-                if (post == null) {
-                    System.out.println("없는 게시물 번호입니다.");
-                } else {
-                    post.view++;
+                    System.out.println("댓글이 성공적으로 등록되었습니다.");
                     post.display();
+                } else if (dnum == 2) {// 좋아요
+                    post.toggleLike(loggedInUser);
+                    post.display();
+                } else if (dnum == 3) { // 수정
+                    if (post.author.equals(loggedInUser.nickname)) {
+                        System.out.print("제목 : ");
+                        String new_title = scanner.nextLine();
+                        System.out.print("내용 : ");
+                        String new_body = scanner.nextLine();
 
-                    while (true) {
-                        System.out.print("상세보기 기능을 선택해주세요(1. 댓글 등록, 2. 좋아요, 3. 수정, 4. 삭제, 5. 목록으로) : ");
-                        int dnum = Integer.parseInt(scanner.nextLine());
+                        post.title = new_title;
+                        post.body = new_body;
 
-                        if (dnum == 1) { // 댓글 등록
-                            System.out.print("댓글 내용 : ");
-                            String comment = scanner.nextLine();
-                            String commentDate = formatter.format(Calendar.getInstance().getTime());
-                            post.addComment(comment, commentDate);
+                        post.display();
+                    } else {
+                        System.out.println("자신의 게시물만 수정할 수 있습니다.");
+                    }
+                } else if (dnum == 4) { // 삭제
+                    if (post.author.equals(loggedInUser.nickname)) {
+                        System.out.print("정말 게시물을 삭제하시겠습니까?(y/n) : ");
+                        String confirm = scanner.nextLine();
 
-                            System.out.println("댓글이 성공적으로 등록되었습니다.");
-                            post.display();
-                        }
-                        else if (dnum == 2) {// 좋아요
-                            post.toggleLike(loggedInUser);
-                            post.display();
-                        }
-                        else if (dnum == 3) { // 수정
-                            if (post.author.equals(loggedInUser.nickname)) {
-                                System.out.print("제목 : ");
-                                String new_title = scanner.nextLine();
-                                System.out.print("내용 : ");
-                                String new_body = scanner.nextLine();
-
-                                post.title = new_title;
-                                post.body = new_body;
-
-                                post.display();
-                            } else {
-                                System.out.println("자신의 게시물만 수정할 수 있습니다.");
-                            }
-                        } else if (dnum == 4) { // 삭제
-                            if (post.author.equals(loggedInUser.nickname)) {
-                                System.out.print("정말 게시물을 삭제하시겠습니까?(y/n) : ");
-                                String confirm = scanner.nextLine();
-
-                                if (confirm.equals("y")) {
-                                    posts.remove(post);
-                                    System.out.println(loggedInUser.nickname + "님의 " + number + "번 게시물을 삭제했습니다.");
-                                    break;
-                                }
-                            } else {
-                                System.out.println("자신의 게시물만 삭제할 수 있습니다.");
-                            }
-                        } else if (dnum == 5) { // 목록으로
-                            System.out.println("상세보기 화면을 빠져나갑니다.");
+                        if (confirm.equals("y")) {
+                            posts.remove(post);
+                            System.out.println(loggedInUser.nickname + "님의 " + number + "번 게시물을 삭제했습니다.");
                             break;
                         }
+                    } else {
+                        System.out.println("자신의 게시물만 삭제할 수 있습니다.");
                     }
+                } else if (dnum == 5) { // 목록으로
+                    System.out.println("상세보기 화면을 빠져나갑니다.");
+                    break;
                 }
             }
         }
+    }
+
+    private static void deletePost(User loggedInUser) {
+        System.out.print("삭제할 게시물 번호 : ");
+        int number = Integer.parseInt(scanner.nextLine());
+        Post post = getPostByNumber(posts, number);
+
+        if (post == null) {
+            System.out.println("없는 게시물 번호입니다.");
+        } else if (!post.author.equals(loggedInUser.nickname)) {
+            System.out.println("자신의 게시물만 삭제할 수 있습니다.");
+        } else {
+            posts.remove(post);
+            System.out.println(number + "번 게시물이 삭제되었습니다.");
+        }
+    }
+
+    private static void updatePost(User loggedInUser) {
+        System.out.print("수정할 게시물 번호 : ");
+        int number = Integer.parseInt(scanner.nextLine());
+        Post post = getPostByNumber(posts, number);
+
+        if (post == null) {
+            System.out.println("없는 게시물 번호입니다.");
+        } else if (!post.author.equals(loggedInUser.nickname)) {
+            System.out.println("자신의 게시물만 수정할 수 있습니다.");
+        } else {
+            System.out.print("제목 : ");
+            String new_title = scanner.nextLine();
+            System.out.print("내용 : ");
+            String new_body = scanner.nextLine();
+            System.out.println(number + "번 게시물이 수정되었습니다.");
+
+            post.title = new_title;
+            post.body = new_body;
+        }
+    }
+
+    private static void listPosts() {
+        System.out.println("==================");
+        for (Post post : posts) {
+            System.out.println("번호 : " + post.number);
+            System.out.println("제목 : " + post.title);
+            System.out.println("==================");
+        }
+    }
+
+    private static void addPost(User loggedInUser) {
+        System.out.print("게시물 제목을 입력해주세요 : ");
+        String title = scanner.nextLine();
+        System.out.print("게시물 내용을 입력해주세요 : ");
+        String body = scanner.nextLine();
+
+        posts.add(new Post(++postCount, title, body, "작성자", formatter.format(new Date())));
+        System.out.println("게시물이 등록되었습니다.");
     }
 
     static Post getPostByNumber(ArrayList<Post> posts, int number) {
