@@ -135,8 +135,9 @@ public class Main {
                             System.out.println("댓글이 성공적으로 등록되었습니다.");
                             post.display();
                         }
-                        else if (dnum == 2) { // 좋아요
-
+                        else if (dnum == 2) {// 좋아요
+                            post.toggleLike(loggedInUser);
+                            post.display();
                         }
                         else if (dnum == 3) { // 수정
                             if (post.author.equals(loggedInUser.nickname)) {
