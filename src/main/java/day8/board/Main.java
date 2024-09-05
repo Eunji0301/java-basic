@@ -1,10 +1,7 @@
 package day8.board;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     static Scanner scanner = new Scanner(System.in);
@@ -40,6 +37,8 @@ public class Main {
                 deletePost(loggedInUser);
             } else if (cmd.equals("detail")) {
                 detailPost(loggedInUser);
+            } else if (cmd.equals("sort")) {
+                sortPost(loggedInUser);
             }
         }
     }
@@ -80,6 +79,29 @@ public class Main {
         posts.add(new Post(++postCount, "안녕하세요 반갑습니다. 자바 공부중이에요.", "자바 너무 재밌어요!!", "홍길동", formatter.format(Calendar.getInstance().getTime())));
         posts.add(new Post(++postCount, "자바 질문좀 할게요~", "자바에서 배열과 리스트의 차이가 뭔가요?", "이순신", formatter.format(Calendar.getInstance().getTime())));
         posts.add(new Post(++postCount, "정처기 따야되나요?", "정처기 자격증이 취업에 얼마나 도움이 될까요?", "임꺽정", formatter.format(Calendar.getInstance().getTime())));
+    }
+
+    private static void sortPost(User loggedInUser) {
+        System.out.print("정렬대상을 선택해주세요 : (1. 번호, 2. 조회수) : ");
+        int sortTarget = Integer.parseInt(scanner.nextLine());
+        System.out.println("정렬 방법을 선택해주세요 : (1. 오름차순, 2. 내림차순) : ");
+        int sortHow = Integer.parseInt(scanner.nextLine());
+
+        if (sortTarget == 1) {
+            if (sortHow == 1) {
+                posts.sort(Comparator.comparingInt(post -> post.number));
+            } else if (sortHow == 2) {
+                posts.sort((post1, post2) -> post2.number - post1.number);
+            }
+        } else if (sortTarget == 2) {
+            if (sortHow == 1) {
+                posts.sort(Comparator.comparingInt(post -> post.view));
+            } else if (sortHow == 2) {
+                posts.sort((post1, post2) -> post2.number - post1.number);
+            }
+        }
+
+
     }
 
     private static void detailPost(User loggedInUser) {
