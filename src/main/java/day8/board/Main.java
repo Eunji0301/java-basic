@@ -10,7 +10,6 @@ public class Main {
     static User loggedInUser = null;
 
     public static void main(String[] args) {
-        Post post = null;
         userController.signUp();
         loggedInUser = userController.login();
 
@@ -26,9 +25,27 @@ public class Main {
             } else if (cmd.equals("list")) {
                 postController.listPosts();
             } else if (cmd.equals("update")) {
-                postController.updatePost(post, loggedInUser);
+                System.out.print("수정할 게시물 번호를 입력해주세요 : ");
+                int number = Integer.parseInt(scanner.nextLine());
+
+                Post post = postController.getPostByNumber(number);
+
+                if (post != null) {
+                    postController.updatePost(post, loggedInUser);
+                } else {
+                    System.out.println("해당 게시물이 존재하지 않습니다.");
+                }
             } else if (cmd.equals("delete")) {
-                postController.deletePost(post, loggedInUser);
+                System.out.print("삭제할 게시물 번호를 입력해주세요 : ");
+                int number = Integer.parseInt(scanner.nextLine());
+
+                Post post = postController.getPostByNumber(number);
+
+                if (post != null) {
+                    postController.deletePost(post, loggedInUser);
+                } else {
+                    System.out.println("해당 게시물이 존재하지 않습니다.");
+                }
             } else if (cmd.equals("detail")) {
                 postController.detailPost(loggedInUser);
             } else if (cmd.equals("sort")) {
