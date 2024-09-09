@@ -1,17 +1,18 @@
 package day8.board;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Post {
     int number;
+
     String title;
     String body;
     String author;
     String date;
     int view;
     int like;
-    ArrayList<Comment> comments;
-    ArrayList<String> likedUsers;
+    private List<String> comments;
 
     Post(int number, String title, String body, String author, String date) {
         this.number = number;
@@ -23,41 +24,80 @@ public class Post {
         this.view = 0;
         this.like = 0;
         this.comments = new ArrayList<>();
-        this.likedUsers = new ArrayList<>();
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public int getView() {
+        return view;
+    }
+
+    public void setView(int view) {
+        this.view = view;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public int getLike() {
+        return like;
+    }
+
+    public void setLike(int like) {
+        this.like = like;
+    }
+
+    public List<String> getComments() {
+        return comments;
     }
 
     public void toggleLike(User user) {
-        if (likedUsers.contains(user.nickname)) {
-            likedUsers.remove(user.nickname);
-            this.like--;
-            System.out.println("해당 게시물의 좋아요를 해제합니다.");
-        } else {
-            likedUsers.add(user.nickname);
+        if (like == 0) {
             this.like++;
             System.out.println("해당 게시물을 좋아합니다.");
-        }
-    }
 
-    public void display() {
-        System.out.println("===== " + number + "번 게시물 =====");
-        System.out.println("번호 : " + number);
-        System.out.println("제목 : " + title);
-        System.out.println("내용 : " + body);
-        System.out.println("등록날짜 : " + date);
-        System.out.println("조회수 : " + view);
-        System.out.println("작성자 : " + author);
-        System.out.println("좋아요 :  " + (like > 0 ? "♥ " + like : "♡ " + like));
-        System.out.println("======================");
-
-        System.out.println("======= 댓글 =======");
-        for (Comment comment : comments) {
-            System.out.println(comment.content);
-            System.out.println("댓글 작성일 : " + comment.date);
-            System.out.println("====================");
+        } else {
+            this.like--;
+            System.out.println("해당 게시물의 좋아요를 해제합니다.");
         }
     }
 
     public void addComment(String content, String date) {
-        comments.add(new Comment(content, date));
+        comments.add(content + date);
     }
 }
