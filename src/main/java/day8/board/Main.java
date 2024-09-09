@@ -5,10 +5,14 @@ import java.util.*;
 public class Main {
     static Scanner scanner = new Scanner(System.in);
     static PostController postController = new PostController();
+    static UserController userController = new UserController();
+
+    static User loggedInUser = null;
 
     public static void main(String[] args) {
         Post post = null;
-        User loggedInUser = null;
+        userController.signUp();
+        loggedInUser = userController.login();
 
         while (true) {
             System.out.print("명령어 : ");

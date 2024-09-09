@@ -4,20 +4,17 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class PostController {
-    static ArrayList<Post> posts = new ArrayList<>();
+    static List<Post> posts = new ArrayList<>();
     private PostView postView = new PostView();
     private static Scanner scanner = new Scanner(System.in);
-    private static int postCount = 0;
+    private SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+    private int postCount = 0;
     static int currentPage = 1; // 최근 페이지
     static int postsPerPage = 3; // 한페이지당 3 게시물
     static int pageDisplayLimit = 5;// 페이지 개수 많을 때 한 블록에 최대 5개 페이지
 
-    private Date now;
-    private SimpleDateFormat formatter;
 
     public PostController() {
-        this.now = Calendar.getInstance().getTime();
-        this.formatter = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
         initializePosts();
     }
 

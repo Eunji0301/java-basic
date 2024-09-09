@@ -98,6 +98,6 @@ public class Post {
     }
 
     public void addComment(String content, String date) {
-        comments.add(content + date);
+        comments.add(content);
     }
 }
