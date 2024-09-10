@@ -5,7 +5,6 @@ import java.util.List;
 
 public class Post {
     int number;
-
     String title;
     String body;
     String author;

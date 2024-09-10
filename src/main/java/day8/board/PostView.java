@@ -12,8 +12,8 @@ public class PostView {
         System.out.println("좋아요 :  " + (post.getLike() > 0 ? "♥ " + post.getLike() : "♡ " + post.getLike()));
         System.out.println("======================");
 
-        System.out.println("======= 댓글 =======");
         for (String comment : post.getComments()) {
+            System.out.println("======= 댓글 =======");
             System.out.println(post.getComments());
             System.out.println("댓글 작성일 : " + post.getDate());
             System.out.println("====================");
