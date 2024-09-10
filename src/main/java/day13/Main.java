@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class Main {
     static Scanner scanner = new Scanner(System.in);
     static ArrayList<Post> posts = new ArrayList<>();
+    static ArrayList<User> users = new ArrayList<>();
     static int postCount = 0;
 
     public static void main(String[] args) {
@@ -31,8 +32,24 @@ public class Main {
                 detailPost();
             } else if (cmd.equals("search")) {
                 searchPost();
+            } else if (cmd.equals("signup")) {
+                userSignUp();
             }
         }
+    }
+
+    private static void userSignUp() {
+        System.out.println("===== 회원 가입을 진행합니다. =====");
+        System.out.print("아이디를 입력해주세요 : ");
+        String id = scanner.nextLine();
+        System.out.print("비밀번호를 입력해주세요 : ");
+        String pw = scanner.nextLine();
+        System.out.print("닉네임을 입력해주세요 : ");
+        String nickname = scanner.nextLine();
+
+        users.add(new User(id, pw, nickname));
+        System.out.println();
+        System.out.println("===== 회원가입이 완료되었습니다. =====");
     }
 
     private static void searchPost() {
