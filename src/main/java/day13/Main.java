@@ -4,17 +4,26 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
+    static User loggedInUser = null;
+
     static Scanner scanner = new Scanner(System.in);
     static ArrayList<Post> posts = new ArrayList<>();
     static ArrayList<User> users = new ArrayList<>();
     static int postCount = 0;
 
+
     public static void main(String[] args) {
+        users.add(new User("hong123", "h1234", "홍길동"));
+        users.add(new User("lee123", "l1234", "이순신"));
 
         testData();
 
         while (true) {
-            System.out.print("명령어 : ");
+            if (loggedInUser == null) {
+                System.out.print("명령어 : ");
+            } else {
+                System.out.print("명령어[" + loggedInUser.id + "(" + loggedInUser.nickname + ")] : ");
+            }
             String cmd = scanner.nextLine();
 
             if (cmd.equals("exit")) {
@@ -34,8 +43,26 @@ public class Main {
                 searchPost();
             } else if (cmd.equals("signup")) {
                 userSignUp();
+            } else if (cmd.equals("login")) {
+                userLogIn();
             }
         }
+    }
+
+    private static void userLogIn() {
+        System.out.print("아이디 : ");
+        String id = scanner.nextLine();
+        System.out.print("비밀번호 : ");
+        String pw = scanner.nextLine();
+
+        for (User user : users) {
+            if (user.id.equals(id) && user.pw.equals(pw)) {
+                loggedInUser = user;
+                System.out.println(loggedInUser.nickname + "님 환영합니다!");
+                return;
+            }
+        }
+        System.out.println("비밀번호를 틀렸거나 잘못된 회원정보입니다.");
     }
 
     private static void userSignUp() {
