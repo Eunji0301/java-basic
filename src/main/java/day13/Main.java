@@ -64,20 +64,25 @@ public class Main {
 
         if (post != null) {
             post.increaseView();
-            System.out.println("===================");
+            System.out.println("===== " + post.number + "번 게시물 =====");
             System.out.println("번호 : " + post.number);
             System.out.println("제목 : " + post.title);
             System.out.println("내용 : " + post.body);
             System.out.println("등록날짜 : " + post.getFormattedDate());
             System.out.println("조회수 : " + post.view);
-            System.out.println("===================");
+            System.out.println("======================");
 
-            System.out.print("상세보기 기능을 선택해주세요(1. 댓글 등록, 2. 추천, 3. 수정, 4. 삭제, 5. 목록으로) : ");
-            int dnum = Integer.parseInt(scanner.nextLine());
 
             while (true) {
-                if (dnum == 1) { // 댓글등록
+                System.out.print("상세보기 기능을 선택해주세요(1. 댓글 등록, 2. 추천, 3. 수정, 4. 삭제, 5. 목록으로) : ");
+                int dnum = Integer.parseInt(scanner.nextLine());
 
+                if (dnum == 1) { // 댓글등록
+                    System.out.print("댓글 내용 : ");
+                    String content = scanner.nextLine();
+                    post.addComment(content);
+                    System.out.println("댓글이 성공적으로 등록되었습니다.");
+                    post.display();
                 } else if (dnum == 5) { // 목록으로
                     System.out.println("상세보기 화면을 빠져나갑니다.");
                     break;
