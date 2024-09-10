@@ -11,10 +11,10 @@ public class Main {
     static ArrayList<User> users = new ArrayList<>();
     static int postCount = 0;
 
-
     public static void main(String[] args) {
         users.add(new User("hong123", "h1234", "홍길동"));
         users.add(new User("lee123", "l1234", "이순신"));
+        users.add(new User("yim123", "y1234", "임꺽정"));
 
         testData();
 
@@ -114,8 +114,8 @@ public class Main {
             System.out.println("내용 : " + post.body);
             System.out.println("등록날짜 : " + post.getFormattedDate());
             System.out.println("조회수 : " + post.view);
+            System.out.println("작성자 : " + post.author.nickname);
             System.out.println("======================");
-
 
             while (true) {
                 System.out.print("상세보기 기능을 선택해주세요(1. 댓글 등록, 2. 추천, 3. 수정, 4. 삭제, 5. 목록으로) : ");
@@ -127,6 +127,31 @@ public class Main {
                     post.addComment(content);
                     System.out.println("댓글이 성공적으로 등록되었습니다.");
                     post.display();
+                } else if (dnum == 3) {
+                    if (post.author.equals(loggedInUser)) {
+                        System.out.print("제목 : ");
+                        String new_title = scanner.nextLine();
+                        System.out.print("내용 : ");
+                        String new_body = scanner.nextLine();
+
+                        post.title = new_title;
+                        post.body = new_body;
+                    } else {
+                        System.out.println("자신의 게시물만 수정할 수 있습니다.");
+                    }
+                } else if (dnum == 4) {
+                    if (post.author.equals(loggedInUser)) {
+                        System.out.print("정말 게시물을 삭제하시겠습니까?(y/n) : ");
+                        String really = scanner.nextLine();
+
+                        if (really.equals("y")) {
+                            posts.remove(post);
+                            System.out.println(loggedInUser.nickname + "님의 " + post.number + "번 게시물을 삭제했습니다.");
+                            break;
+                        }
+                    } else {
+                        System.out.println("자신의 게시물만 삭제할 수 있습니다.");
+                    }
                 } else if (dnum == 5) { // 목록으로
                     System.out.println("상세보기 화면을 빠져나갑니다.");
                     break;
@@ -183,13 +208,13 @@ public class Main {
         System.out.print("게시물 내용을 입력해주세요 : ");
         String body = scanner.nextLine();
 
-        posts.add(new Post(++postCount, title, body));
+        posts.add(new Post(++postCount, title, body, loggedInUser));
     }
 
     public static void testData() {
-        posts.add(new Post(++postCount, "안녕하세요 반갑습니다. 자바 공부중이에요.", "자바 너무 재밌어요!!"));
-        posts.add(new Post(++postCount, "자바 질문좀 할게요~", "BBB"));
-        posts.add(new Post(++postCount, "정처기 따야되나요?", "CCC"));
+        posts.add(new Post(++postCount, "안녕하세요 반갑습니다. 자바 공부중이에요.", "자바 너무 재밌어요!!", users.get(0)));
+        posts.add(new Post(++postCount, "자바 질문좀 할게요~", "BBB", users.get(1)));
+        posts.add(new Post(++postCount, "정처기 따야되나요?", "CCC", users.get(2)));
     }
 
     public static Post findPostByNumber(ArrayList<Post> posts, int num) {

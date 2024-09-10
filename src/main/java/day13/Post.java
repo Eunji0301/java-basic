@@ -11,14 +11,16 @@ public class Post {
     int view;
     Date createdate;
     ArrayList<Comment> comments;
+    User author;
 
-    public Post(int number, String title, String body) {
+    public Post(int number, String title, String body, User author) {
         this.number = number;
         this.title = title;
         this.body = body;
         this.view = 0;
         this.createdate = new Date();
         this.comments = new ArrayList<>();
+        this.author = author;
     }
 
     public void increaseView() {
@@ -26,12 +28,12 @@ public class Post {
     }
 
     public String getFormattedDate() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd hh:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
         return dateFormat.format(this.createdate);
     }
 
     public void addComment(String content) {
-        String commentDate = new SimpleDateFormat("yyyy.MM.dd hh:mm:ss").format(new Date());
+        String commentDate = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").format(new Date());
         comments.add(new Comment(content, commentDate));
     }
 
@@ -42,6 +44,7 @@ public class Post {
         System.out.println("내용 : " + body);
         System.out.println("작성일 : " + getFormattedDate());
         System.out.println("조회수 : " + view);
+        System.out.println("작성자 : " + author.nickname);
         System.out.println("======================");
 
         System.out.println("======== 댓글 ========");
