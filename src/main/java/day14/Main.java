@@ -86,6 +86,7 @@ public class Main {
                     System.out.println("등록날짜 : " + post.getFormattedDate());
                     System.out.println("조회수 : " + post.view);
                     System.out.println("작성자 : " + post.author.nickname);
+                    System.out.println("좋아요 : " + (post.like > 0 ? "♥ " + post.like : "♡ " + post.like));
                     System.out.println("==================");
 
                     while (true) {
@@ -98,7 +99,11 @@ public class Main {
                             post.addComment(content);
                             System.out.println("댓글이 성공적으로 등록되었습니다.");
                             post.display();
-                        } else if (dnum == 3) {
+                        } else if (dnum == 2) { // 추천
+                            post.toggleLike(loggedInUser);
+                            post.display();
+                        }
+                        else if (dnum == 3) { // 수정
                             if (post.author.equals(loggedInUser)) {
                                 System.out.print("제목 : ");
                                 String new_title = scanner.nextLine();
@@ -115,6 +120,7 @@ public class Main {
                                 System.out.println("등록날짜 : " + post.getFormattedDate());
                                 System.out.println("조회수 : " + post.view);
                                 System.out.println("작성자 : " + post.author.nickname);
+                                System.out.println("좋아요 : " + (post.like > 0 ? "♥ " + post.like : "♡ " + post.like));
                                 System.out.println("==================");
                             } else {
                                 System.out.println("자신의 게시물만 수정할 수 있습니다.");

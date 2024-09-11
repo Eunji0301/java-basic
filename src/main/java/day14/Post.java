@@ -1,5 +1,7 @@
 package day14;
 
+import day2.Array;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,6 +14,8 @@ public class Post {
     int view;
     ArrayList<Comment> comments;
     User author;
+    int like;
+    ArrayList<String> likedUsers;
 
     public Post(int number, String title, String body, User author) {
         this.number = number;
@@ -21,6 +25,8 @@ public class Post {
         this.view = 0;
         this.comments = new ArrayList<>();
         this.author = author;
+        this.like = 0;
+        this.likedUsers = new ArrayList<>();
     }
 
     public String getFormattedDate() {
@@ -45,6 +51,7 @@ public class Post {
         System.out.println("작성일 : " + getFormattedDate());
         System.out.println("조회수 : " + view);
         System.out.println("작성자 : " + author.nickname);
+        System.out.println("좋아요 : " + (like > 0 ? "♥ " + like : "♡ " + like));
         System.out.println("==================");
 
         System.out.println("===== 댓글 =====");
@@ -52,6 +59,18 @@ public class Post {
             System.out.println("댓글 내용 : " + comment.content);
             System.out.println("댓글 작성일 : " + comment.commentDate);
             System.out.println("==================");
+        }
+    }
+
+    public void toggleLike(User user) {
+        if (likedUsers.contains(user.nickname)) {
+            likedUsers.remove(user.nickname);
+            this.like--;
+            System.out.println("해당 게시물의 좋아요를 해제합니다.");
+        } else {
+            likedUsers.add(user.nickname);
+            this.like++;
+            System.out.println("해당 게시물을 좋아합니다.");
         }
     }
 }
