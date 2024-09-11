@@ -166,6 +166,7 @@ public class Main {
         System.out.print("삭제할 게시물 번호 : ");
         int num = Integer.parseInt(scanner.nextLine());
         Post post = findPostByNumber(posts, num);
+
         if (post != null) {
             posts.remove(post);
             System.out.println(num + "번 게시물이 삭제되었습니다.");
