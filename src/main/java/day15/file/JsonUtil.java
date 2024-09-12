@@ -9,11 +9,21 @@ public class JsonUtil {
     ObjectMapper objectMapper = new ObjectMapper();
 
     public String toJsonString(Post p1) {
-
         try {
             // 객체를 JSON으로 직렬화
             String jsonString = objectMapper.writeValueAsString(p1);
             return jsonString;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public String toJsonString2(Member m1) {
+        try {
+            // 객체를 JSON으로 직렬화
+            String jsonString2 = objectMapper.writeValueAsString(m1);
+            return jsonString2;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -29,4 +39,5 @@ public class JsonUtil {
                 return null;
             }
     }
+
 }

@@ -7,6 +7,7 @@ public class Post {
     private String createDate;
     private int hit;
 
+    // 생성자 여러개 만들 수 있다. 단, 매개변수 모양이 달라야함. => 생성자 오버로딩
     public Post() {}
 
     public Post(int id, String title, String body, String createDate, int hit) {
