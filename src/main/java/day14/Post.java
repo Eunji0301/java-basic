@@ -1,7 +1,5 @@
 package day14;
 
-import day2.Array;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -54,11 +52,12 @@ public class Post {
         System.out.println("좋아요 : " + (like > 0 ? "♥ " + like : "♡ " + like));
         System.out.println("==================");
 
-        System.out.println("===== 댓글 =====");
+
         for (Comment comment : comments) {
+            System.out.println("===== 댓글 =====");
             System.out.println("댓글 내용 : " + comment.content);
             System.out.println("댓글 작성일 : " + comment.commentDate);
-            System.out.println("==================");
+            System.out.println("================");
         }
     }
 
