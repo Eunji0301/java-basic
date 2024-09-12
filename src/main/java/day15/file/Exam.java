@@ -4,6 +4,8 @@ public class Exam {
     public static void main(String[] args) {
         DataStore ds = new DataStore();
 
+        // 형변환 -> 원시타입 => 작은거에서 큰거로 변환하면 안전.(자동형변환)
+        //        -> 객체타입 => 자식타입이 부모타입으로 변환하면 안전(자동형변환)
         // // 정수 계열
         byte b = 0; // 1바이트
         ds.save(b);
@@ -16,6 +18,8 @@ public class Exam {
 
         long l = 4; // 8바이트
         ds.save(l);
+
+        // 정수 => 실수 변환이 안전
 
         // 실수 계열
         // 4.1f => float 형 실수를 의미
@@ -43,27 +47,21 @@ public class Exam {
 }
 
 class DataStore {
-    public void save(byte b) {}
 
-    public void save(short s) {}
+    // 원시타입을 객체타입으로 만들기
+    // int -> Integer
+    // char -> Character
+    // boolean -> Boolean
+    // double -> Double
+    public void save(Object o) {}
 
-    public void save(int i) {}
-
-    public void save(long l) {}
-
-    public void save(float f) {}
-
-    public void save(double d) {}
-
-    public void save(boolean b) {}
-
-    public void save(Person p1) {}
-
-    public void save(Apple a1) {}
-
-    public void save(String s) {}
 }
 
-class Person {}
+// 모든 객체를아우르는 가장 큰 개념이 필요할 수 있다. => Object
+// 자바에서 모든 객체는 Object를 상속받는다.
+// extends Object
+class Creature /*extends Object*/ {}
 
-class Apple {}
+class Person extends Creature{}
+
+class Apple extends Creature {}
