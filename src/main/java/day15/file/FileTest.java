@@ -7,13 +7,12 @@ import java.nio.file.Paths;
 
 public class FileTest {
     public static void main(String[] args) {
-        String content = "이것은 파일에 쓰여질 내용입니다.";
-        Path filePath = Paths.get("example.txt");
+        Path filePath = Paths.get("test.txt");
 
         try {
-            // 파일에 문자열 쓰기
-            Files.write(filePath,content.getBytes());
-            System.out.println("파일 작성 완료 : "+filePath.toAbsolutePath());
+            // 파일에 문자열 읽기
+            String content = Files.readString(filePath);
+            System.out.println("파일 내용 : " + content);
         } catch (IOException e) {
             e.printStackTrace();
         }
